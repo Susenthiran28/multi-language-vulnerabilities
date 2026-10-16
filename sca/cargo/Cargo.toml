@@ -1,0 +1,29 @@
+# File:    Cargo.toml
+# Purpose: SCA fixture. Cargo manifest pinned to known-vulnerable crate releases.
+#          DO NOT BUILD.
+# Author:  Vigilnz Security Engineering
+# Date:    2026-10-16
+
+[package]
+name = "vuln-corpus-cargo"
+version = "1.0.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+# CVE-2022-24713 - regex DoS via untrusted patterns
+regex = "=1.5.4"
+# RUSTSEC-2020-0071 / CVE-2020-26235 - time segfault
+time = "=0.1.44"
+# RUSTSEC-2021-0003 - smallvec buffer overflow
+smallvec = "=1.6.0"
+# RUSTSEC-2021-0079 - hyper integer overflow
+hyper = "=0.14.9"
+# RUSTSEC-2021-0124 - tokio data race
+tokio = { version = "=1.8.0", features = ["full"] }
+# RUSTSEC-2023-0072 - openssl use-after-free
+openssl = "=0.10.38"
+# RUSTSEC-2022-0040 - owning_ref unsoundness
+owning_ref = "=0.4.1"
+# RUSTSEC-2021-0078 - hyper header parsing
+chrono = "=0.4.19"

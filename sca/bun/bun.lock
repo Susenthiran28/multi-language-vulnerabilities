@@ -1,0 +1,22 @@
+{
+  "lockfileVersion": 1,
+  "workspaces": {
+    "": {
+      "name": "vuln-corpus-bun",
+      "dependencies": {
+        "cookie": "0.4.1",
+        "express": "4.17.1",
+        "path-to-regexp": "0.1.7",
+        "qs": "6.5.2",
+        "send": "0.17.1"
+      }
+    }
+  },
+  "packages": {
+    "cookie": ["cookie@0.4.1", "", {}, "sha512-ZwrFkGJxUR3EIoXtOyVE69Eb7KlixbaeAWfBQB9vVsNnoYw69gBWSSDK825hQNdNwF8zELf3dFNlkxkUA=="],
+    "express": ["express@4.17.1", "", { "dependencies": { "cookie": "0.4.0", "path-to-regexp": "0.1.7", "qs": "6.7.0", "send": "0.17.1" } }, "sha512-mHJ9O79RqluphRrcw2XGTh3k9tVv8YcoyY4Kkh4WDMUYKRZUq0h1o0w2rrrxBqM7VoeUVqgb27xlEMXTnYt4g=="],
+    "path-to-regexp": ["path-to-regexp@0.1.7", "", {}, "sha512-5DFkuoqlv1uYQKxy8omFBeJPQcdoE07Kv2sferDCrAq1ohOU6KSozW17c0Ox2wMrcRHO7owSelfbwzZUBHIIU="],
+    "qs": ["qs@6.5.2", "", {}, "sha512-N5ZAX4LxJmF7wN74pUD6qAh9wnvdQcjq9TZjevvXzSUo7bfmw91saqMjzGS2xq91odN2dWWOl7qQHNDGA=="],
+    "send": ["send@0.17.1", "", {}, "sha512-BsVKsiGcQMFwT8UxypobUKyv7irCNRHk1T0G680vk88yf6LBByGcZJOTJCrTP2xVN6yIXjPJcNuE3V4fT9sAg=="]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "vuln-corpus-bun",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SCA fixture: bun manifest pinned to known-vulnerable releases. DO NOT INSTALL.",
+  "dependencies": {
+    "express": "4.17.1",
+    "qs": "6.5.2",
+    "cookie": "0.4.1",
+    "send": "0.17.1",
+    "path-to-regexp": "0.1.7"
+  }
+}

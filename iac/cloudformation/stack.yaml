@@ -1,0 +1,193 @@
+# File:    stack.yaml
+# Purpose: IaC fixture. CloudFormation template with public S3, open security
+#          groups, unencrypted RDS/DynamoDB, over-broad IAM and no CloudTrail
+#          hardening. Intentionally misconfigured - never deploy.
+# Author:  Vigilnz Security Engineering
+# Date:    2026-10-16
+#
+# Expected rules: CF-AWS-S3-001..008, CF-AWS-EC2-001/002, CF-AWS-RDS-001..004,
+#   CF-AWS-LAMBDA-001..005, CF-AWS-CLOUDTRAIL-001/002, CF-AWS-DYNAMODB-001/002,
+#   CF-AWS-KMS-001, CF-AWS-ELB-001
+
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Vigilnz IaC fixture - intentionally misconfigured AWS stack
+
+Parameters:
+  DbPassword:
+    Type: String
+    Default: FixturePassw0rd
+    Description: Plaintext default, deliberately not NoEcho
+
+Resources:
+
+  # S3: public ACL, no encryption, no versioning, no logging, no public access block
+  PublicAssetsBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: vigilnz-fixture-cf-assets
+      AccessControl: PublicReadWrite
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+      VersioningConfiguration:
+        Status: Suspended
+
+  PublicBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref PublicAssetsBucket
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal: '*'
+            Action: 's3:*'
+            Resource: !Sub '${PublicAssetsBucket.Arn}/*'
+
+  # Security group: unrestricted ingress
+  WideOpenSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Fixture security group with unrestricted ingress
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 3389
+          ToPort: 3389
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: '-1'
+          CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+        - IpProtocol: '-1'
+          CidrIp: 0.0.0.0/0
+
+  # EC2: unencrypted volume, IMDSv1, credentials in user data
+  AppInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-0fixture00000000
+      InstanceType: t3.medium
+      SecurityGroupIds:
+        - !Ref WideOpenSecurityGroup
+      BlockDeviceMappings:
+        - DeviceName: /dev/xvda
+          Ebs:
+            Encrypted: false
+      MetadataOptions:
+        HttpTokens: optional
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          export DB_PASSWORD="${DbPassword}"
+
+  # RDS: public, unencrypted, no backups
+  AppDatabase:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBInstanceIdentifier: vigilnz-fixture-cf-db
+      Engine: postgres
+      DBInstanceClass: db.t3.medium
+      AllocatedStorage: '20'
+      MasterUsername: postgres
+      MasterUserPassword: !Ref DbPassword
+      PubliclyAccessible: true
+      StorageEncrypted: false
+      BackupRetentionPeriod: 0
+      DeletionProtection: false
+
+  # IAM: wildcard action on wildcard resource
+  AdminRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: '*'
+            Action: 'sts:AssumeRole'
+      Policies:
+        - PolicyName: AllowEverything
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: '*'
+                Resource: '*'
+
+  # Lambda: secrets in environment, no DLQ, no tracing, no reserved concurrency
+  ProcessorFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: vigilnz-fixture-processor
+      Runtime: nodejs14.x
+      Handler: index.handler
+      Role: !GetAtt AdminRole.Arn
+      Code:
+        ZipFile: |
+          exports.handler = async (event) => ({ statusCode: 200 });
+      Environment:
+        Variables:
+          DB_PASSWORD: FixturePassw0rd
+          API_KEY: ak_live_cf_0123456789abcdef
+      TracingConfig:
+        Mode: PassThrough
+
+  # DynamoDB: no encryption, no point-in-time recovery
+  SessionsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: vigilnz-fixture-sessions
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: false
+      SSESpecification:
+        SSEEnabled: false
+
+  # CloudTrail: single region, no log validation
+  AuditTrail:
+    Type: AWS::CloudTrail::Trail
+    Properties:
+      TrailName: vigilnz-fixture-trail
+      S3BucketName: !Ref PublicAssetsBucket
+      IsLogging: true
+      IsMultiRegionTrail: false
+      EnableLogFileValidation: false
+      IncludeGlobalServiceEvents: false
+
+  # KMS: rotation disabled
+  AppKey:
+    Type: AWS::KMS::Key
+    Properties:
+      Description: Fixture key
+      EnableKeyRotation: false
+      KeyPolicy:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: '*'
+            Action: 'kms:*'
+            Resource: '*'
+
+  # ELB: plaintext listener
+  AppListener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      Protocol: HTTP
+      Port: 80
+      LoadBalancerArn: arn:aws:elasticloadbalancing:us-east-1:123456789012:loadbalancer/app/fixture/0
+      DefaultActions:
+        - Type: fixed-response
+          FixedResponseConfig:
+            StatusCode: '200'

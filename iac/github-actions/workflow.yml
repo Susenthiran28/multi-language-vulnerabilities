@@ -1,0 +1,61 @@
+# File:    workflow.yml
+# Purpose: IaC fixture. GitHub Actions workflow with pull_request_target plus
+#          untrusted checkout, script injection via ${{ github.event.* }},
+#          unpinned third-party actions, write-all permissions and plaintext
+#          credentials.
+#
+#          This file deliberately lives OUTSIDE .github/workflows so GitHub will
+#          never schedule it. Do not move or copy it into .github/workflows.
+#
+# Author:  Vigilnz Security Engineering
+# Date:    2026-10-16
+#
+# Expected rules: gha-pull-request-target, gha-script-injection,
+#   gha-unpinned-action, gha-excessive-permissions, gha-hardcoded-secret
+
+name: vigilnz-iac-fixture
+
+on:
+  # Runs with repository write scope while checking out fork code
+  pull_request_target:
+    types: [opened, synchronize]
+  workflow_dispatch:
+
+# Every token scope granted to every job
+permissions: write-all
+
+env:
+  API_KEY: ak_live_gha_0123456789abcdef
+  DB_PASSWORD: FixturePassw0rd
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Untrusted head commit checked out in a privileged context
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: true
+
+      # Third-party actions pinned only to a mutable tag or branch
+      - uses: some-org/setup-tool@master
+      - uses: another-org/deploy-action@v1
+
+      # Attacker-controlled text interpolated into a shell command
+      - name: Greet contributor
+        run: |
+          echo "Title: ${{ github.event.pull_request.title }}"
+          echo "Branch: ${{ github.event.pull_request.head.ref }}"
+          echo "Body: ${{ github.event.pull_request.body }}"
+
+      - name: Build
+        run: |
+          npm ci
+          npm run build
+        env:
+          NPM_TOKEN: npm_FIXTURE000000000000000000000000000000
+
+      # Secret written into logs
+      - name: Debug
+        run: echo "key=$API_KEY"

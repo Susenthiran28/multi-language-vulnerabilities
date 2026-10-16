@@ -1,0 +1,14 @@
+{
+  "name": "vuln-corpus-pnpm",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SCA fixture: pnpm manifest pinned to known-vulnerable releases. DO NOT INSTALL.",
+  "dependencies": {
+    "lodash": "4.17.20",
+    "minimist": "1.2.5",
+    "node-forge": "0.10.0",
+    "ua-parser-js": "0.7.28",
+    "follow-redirects": "1.14.7",
+    "decode-uri-component": "0.2.0"
+  }
+}

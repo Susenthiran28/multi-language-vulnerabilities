@@ -1,0 +1,17 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[packages]
+# SCA fixture - known-vulnerable pins. DO NOT INSTALL.
+pyyaml = "==5.1"
+django = "==2.2.0"
+requests = "==2.19.1"
+urllib3 = "==1.24.1"
+
+[dev-packages]
+py = "==1.10.0"
+
+[requires]
+python_version = "3.9"

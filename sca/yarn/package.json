@@ -1,0 +1,14 @@
+{
+  "name": "vuln-corpus-yarn",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SCA fixture: yarn classic manifest pinned to known-vulnerable releases. DO NOT INSTALL.",
+  "dependencies": {
+    "marked": "2.0.0",
+    "moment": "2.29.1",
+    "glob-parent": "5.1.1",
+    "trim-newlines": "3.0.0",
+    "hosted-git-info": "2.8.8",
+    "ansi-regex": "4.1.0"
+  }
+}

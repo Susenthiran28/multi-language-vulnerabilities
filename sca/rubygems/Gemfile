@@ -1,0 +1,20 @@
+# File:    Gemfile
+# Purpose: SCA fixture. Bundler manifest pinned to known-vulnerable gem releases.
+#          DO NOT INSTALL.
+# Author:  Vigilnz Security Engineering
+# Date:    2026-10-16
+
+source "https://rubygems.org"
+
+gem "rails", "5.2.0"
+gem "nokogiri", "1.10.4"      # CVE-2019-5477 - command injection via Nokogiri::CSS
+gem "rack", "2.0.6"           # CVE-2019-16782 - timing attack on session id
+gem "puma", "4.3.1"           # CVE-2020-5247 - HTTP response splitting
+gem "loofah", "2.2.3"         # CVE-2019-15587 - XSS sanitization bypass
+gem "actionpack", "5.2.0"     # CVE-2020-8164 - strong params deserialization
+gem "rubyzip", "1.2.1"        # CVE-2018-1000544 - directory traversal
+gem "sinatra", "2.0.1"        # CVE-2018-11627 - XSS in 404 page
+
+group :development, :test do
+  gem "rspec", "3.8.0"
+end

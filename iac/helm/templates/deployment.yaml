@@ -1,0 +1,48 @@
+# File:    deployment.yaml
+# Purpose: IaC fixture. Helm template rendering the misconfigured workload.
+#          Intentionally misconfigured - never install.
+# Author:  Vigilnz Security Engineering
+# Date:    2026-10-16
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      hostNetwork: {{ .Values.podSecurityContext.hostNetwork }}
+      hostPID: {{ .Values.podSecurityContext.hostPID }}
+      automountServiceAccountToken: true
+      containers:
+        - name: app
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          securityContext:
+            privileged: {{ .Values.securityContext.privileged }}
+            runAsUser: {{ .Values.securityContext.runAsUser }}
+            allowPrivilegeEscalation: {{ .Values.securityContext.allowPrivilegeEscalation }}
+            readOnlyRootFilesystem: {{ .Values.securityContext.readOnlyRootFilesystem }}
+            capabilities:
+              add: {{ toYaml .Values.securityContext.capabilities.add | nindent 16 }}
+          env:
+            - name: DB_PASSWORD
+              value: "{{ .Values.secrets.dbPassword }}"
+            - name: API_KEY
+              value: "{{ .Values.secrets.apiKey }}"
+          resources: {{ toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: host-root
+              mountPath: /host
+      volumes:
+        - name: host-root
+          hostPath:
+            path: /
+            type: Directory

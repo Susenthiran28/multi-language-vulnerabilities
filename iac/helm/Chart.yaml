@@ -1,0 +1,11 @@
+# File:    Chart.yaml
+# Purpose: IaC fixture. Helm chart metadata for the misconfigured workload below.
+# Author:  Vigilnz Security Engineering
+# Date:    2026-10-16
+
+apiVersion: v2
+name: vigilnz-fixture
+description: Intentionally misconfigured Helm chart for IaC scanner testing
+type: application
+version: 1.0.0
+appVersion: "latest"

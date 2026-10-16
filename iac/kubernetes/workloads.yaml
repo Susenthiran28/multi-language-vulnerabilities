@@ -1,0 +1,145 @@
+# File:    workloads.yaml
+# Purpose: IaC fixture. Kubernetes manifests with privileged containers, host
+#          namespace sharing, missing resource limits, plaintext secrets,
+#          cluster-admin RBAC and unhardened ingress.
+#          Intentionally misconfigured - never apply.
+# Author:  Vigilnz Security Engineering
+# Date:    2026-10-16
+#
+# Expected rules: K8S-SEC-001..010, K8S-RES-001..006, K8S-CAP-001/002,
+#   K8S-IMG-001..003, K8S-NET-001/002, K8S-RBAC-001/002, K8S-SECRET-001,
+#   K8S-INGRESS-001, K8S-PROBE-001/002, K8S-APPARMOR-001
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vigilnz-fixture-app
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vigilnz-fixture
+  template:
+    metadata:
+      labels:
+        app: vigilnz-fixture
+    spec:
+      # Host namespaces shared with the node
+      hostNetwork: true
+      hostPID: true
+      hostIPC: true
+      automountServiceAccountToken: true
+      serviceAccountName: fixture-admin
+      containers:
+        - name: app
+          # Mutable tag, no digest pin, pulled from an unpinned registry
+          image: nginx:latest
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            privileged: true
+            runAsUser: 0
+            runAsNonRoot: false
+            allowPrivilegeEscalation: true
+            readOnlyRootFilesystem: false
+            capabilities:
+              add:
+                - SYS_ADMIN
+                - NET_ADMIN
+                - ALL
+          # No resource requests or limits, no probes
+          env:
+            - name: DB_PASSWORD
+              value: "FixturePassw0rd"
+            - name: API_KEY
+              value: "ak_live_k8s_0123456789abcdef"
+          ports:
+            - containerPort: 80
+              hostPort: 80
+          volumeMounts:
+            - name: host-root
+              mountPath: /host
+      volumes:
+        - name: host-root
+          hostPath:
+            path: /
+            type: Directory
+---
+# Secret stored as plaintext stringData
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vigilnz-fixture-secrets
+  namespace: default
+type: Opaque
+stringData:
+  db-password: "FixturePassw0rd"
+  api-key: "ak_live_k8s_0123456789abcdef"
+  jwt-secret: "fixture-jwt-signing-secret-000000000000"
+---
+# RBAC: cluster-admin bound to a default service account
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: fixture-admin
+  namespace: default
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: fixture-wildcard
+rules:
+  - apiGroups: ["*"]
+    resources: ["*"]
+    verbs: ["*"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: fixture-admin-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+  - kind: ServiceAccount
+    name: fixture-admin
+    namespace: default
+  - kind: Group
+    name: system:anonymous
+    apiGroup: rbac.authorization.k8s.io
+---
+# Service exposed directly to the internet
+apiVersion: v1
+kind: Service
+metadata:
+  name: vigilnz-fixture-svc
+  namespace: default
+spec:
+  type: LoadBalancer
+  selector:
+    app: vigilnz-fixture
+  ports:
+    - port: 80
+      targetPort: 80
+---
+# Ingress without TLS
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: vigilnz-fixture-ingress
+  namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+    - host: fixture.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: vigilnz-fixture-svc
+                port:
+                  number: 80

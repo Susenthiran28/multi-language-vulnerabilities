@@ -1,0 +1,27 @@
+# File:    pyproject.toml
+# Purpose: SCA fixture. Poetry manifest pinned to known-vulnerable releases.
+#          DO NOT INSTALL.
+# Author:  Vigilnz Security Engineering
+# Date:    2026-10-16
+
+[tool.poetry]
+name = "vuln-corpus-poetry"
+version = "1.0.0"
+description = "SCA fixture with known-vulnerable Python dependencies"
+authors = ["Vigilnz Security Engineering <security@vigilnz.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pyyaml = "5.1"
+jinja2 = "2.10"
+django = "2.2.0"
+requests = "2.19.1"
+pillow = "8.1.0"
+lxml = "4.6.2"
+
+[tool.poetry.dev-dependencies]
+py = "1.10.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

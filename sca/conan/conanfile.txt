@@ -1,0 +1,17 @@
+# File:    conanfile.txt
+# Purpose: SCA fixture. Conan C/C++ manifest pinned to known-vulnerable releases.
+#          DO NOT BUILD.
+# Author:  Vigilnz Security Engineering
+# Date:    2026-10-16
+
+[requires]
+openssl/1.0.2u
+zlib/1.2.11
+libcurl/7.68.0
+sqlite3/3.31.1
+libpng/1.6.37
+expat/2.2.9
+
+[generators]
+CMakeDeps
+CMakeToolchain

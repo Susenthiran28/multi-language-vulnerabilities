@@ -1,0 +1,54 @@
+lockfileVersion: '6.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+dependencies:
+  decode-uri-component:
+    specifier: 0.2.0
+    version: 0.2.0
+  follow-redirects:
+    specifier: 1.14.7
+    version: 1.14.7
+  lodash:
+    specifier: 4.17.20
+    version: 4.17.20
+  minimist:
+    specifier: 1.2.5
+    version: 1.2.5
+  node-forge:
+    specifier: 0.10.0
+    version: 0.10.0
+  ua-parser-js:
+    specifier: 0.7.28
+    version: 0.7.28
+
+packages:
+
+  /decode-uri-component@0.2.0:
+    resolution: {integrity: sha512-hjf+xovcEn31w/EUYdTXQh/8smFL/dzYjohQGEIgjyNavaJfBY2p5F527Bo1VPATxv0VYTUC2bOcXvqFwk78Og==}
+    engines: {node: '>=0.10'}
+    dev: false
+
+  /follow-redirects@1.14.7:
+    resolution: {integrity: sha512-hbxoLbFMbRKDwohX8GkTataGqO6Jb7jGwpAlwgy2bIz25XtRm7KEzJM76R1WiNT5SwZkX4Y75SwBolkpmE7iQ==}
+    engines: {node: '>=4.0'}
+    dev: false
+
+  /lodash@4.17.20:
+    resolution: {integrity: sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==}
+    dev: false
+
+  /minimist@1.2.5:
+    resolution: {integrity: sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstPUODVpGsr5OhXhhXg6fqtJ8uiZPUxkDWcgIXLw==}
+    dev: false
+
+  /node-forge@0.10.0:
+    resolution: {integrity: sha512-PPmu8eEeG9saEUvI97fm4OYxXVB6bFvyNTyiUOBichBpFG8A1Ljw3bY625oOjDEMHRnd0Y7HQx7uzxOzC6JA==}
+    engines: {node: '>= 6.0.0'}
+    dev: false
+
+  /ua-parser-js@0.7.28:
+    resolution: {integrity: sha512-6Gurc1ngjp9eQNXjD9O3MsMwVtN5S8Lv9bvOYBfKfDNiIIhqiyi01vMBO45u4zkDE420we0se7VssIgg==}
+    dev: false

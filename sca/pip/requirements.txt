@@ -1,0 +1,32 @@
+# File:    requirements.txt
+# Purpose: SCA fixture. pip manifest pinned to known-vulnerable releases.
+#          DO NOT INSTALL.
+# Author:  Vigilnz Security Engineering
+# Date:    2026-10-16
+
+# CVE-2020-1747 - arbitrary code execution via full_load
+PyYAML==5.1
+# CVE-2019-10906 - Jinja2 sandbox escape
+Jinja2==2.10
+# CVE-2019-14234 - Django JSONField SQL injection
+Django==2.2.0
+# CVE-2018-1000656 - Flask DoS
+Flask==0.12.2
+# CVE-2018-18074 - requests leaks Authorization header on redirect
+requests==2.19.1
+# CVE-2019-11324 - urllib3 CA cert handling
+urllib3==1.24.1
+# CVE-2018-7750 - paramiko auth bypass
+paramiko==2.4.1
+# CVE-2021-25289 - Pillow buffer overflow
+Pillow==8.1.0
+# CVE-2021-41495 - numpy null pointer dereference
+numpy==1.21.0
+# CVE-2020-36242 - cryptography buffer overflow
+cryptography==3.2
+# CVE-2022-21699 - ipython arbitrary code execution
+ipython==7.16.1
+# CVE-2020-28493 - Jinja2/markupsafe ReDoS lineage
+markupsafe==1.1.1
+# CVE-2023-37920 - certifi removes e-Tugra root
+certifi==2022.12.7

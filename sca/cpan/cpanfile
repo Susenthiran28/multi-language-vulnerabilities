@@ -1,0 +1,16 @@
+# File:    cpanfile
+# Purpose: SCA fixture. Perl cpanfile pinned to known-vulnerable distributions.
+#          DO NOT INSTALL.
+# Author:  Vigilnz Security Engineering
+# Date:    2026-10-16
+
+requires 'YAML', '== 1.15';              # CVE-2018-6797 lineage - unsafe load
+requires 'Archive::Tar', '== 2.32';      # CVE-2018-12015 - directory traversal
+requires 'Data::Dumper', '== 2.173';
+requires 'LWP::UserAgent', '== 6.36';    # CVE-2023-31486 - TLS verification bypass
+requires 'DBI', '== 1.641';              # CVE-2020-14392 - heap buffer overflow
+requires 'Email::Address', '== 1.912';   # CVE-2015-7686 - ReDoS
+
+on 'test' => sub {
+    requires 'Test::More', '== 1.302073';
+};

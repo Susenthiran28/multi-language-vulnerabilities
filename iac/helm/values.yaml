@@ -1,0 +1,45 @@
+# File:    values.yaml
+# Purpose: IaC fixture. Helm values carrying plaintext secrets, privileged
+#          security context, mutable image tag and no resource limits.
+#          Intentionally misconfigured - never install.
+# Author:  Vigilnz Security Engineering
+# Date:    2026-10-16
+#
+# Expected rules: helm-plaintext-secret, helm-privileged-container,
+#   helm-latest-tag, helm-no-resource-limits, helm-host-path-mount
+
+image:
+  repository: nginx
+  tag: latest
+  pullPolicy: Always
+
+# Credentials in values instead of an external secret store
+secrets:
+  dbPassword: "FixturePassw0rd"
+  apiKey: "ak_live_helm_0123456789abcdef"
+  jwtSecret: "fixture-jwt-signing-secret-000000000000"
+
+securityContext:
+  privileged: true
+  runAsUser: 0
+  runAsNonRoot: false
+  allowPrivilegeEscalation: true
+  readOnlyRootFilesystem: false
+  capabilities:
+    add:
+      - ALL
+
+podSecurityContext:
+  hostNetwork: true
+  hostPID: true
+
+# No requests or limits set
+resources: {}
+
+service:
+  type: LoadBalancer
+  port: 80
+
+hostPaths:
+  - name: host-root
+    path: /

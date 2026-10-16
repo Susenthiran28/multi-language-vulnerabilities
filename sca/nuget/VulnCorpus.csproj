@@ -1,0 +1,33 @@
+<!--
+  File:    VulnCorpus.csproj
+  Purpose: SCA fixture. NuGet PackageReference manifest pinned to known-vulnerable releases.
+           DO NOT BUILD OR RESTORE.
+  Author:  Vigilnz Security Engineering
+  Date:    2026-10-16
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- CVE-2024-21907 - deeply nested object DoS -->
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <!-- CVE-2021-26701 - .NET Core RCE -->
+    <PackageReference Include="System.Text.Encodings.Web" Version="4.5.0" />
+    <!-- CVE-2018-1285 - log4net XXE -->
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <!-- CVE-2021-24112 - System.Drawing.Common RCE -->
+    <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
+    <!-- CVE-2019-0820 - regex DoS -->
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.0" />
+    <!-- CVE-2022-34716 - XML signature spoofing -->
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="4.7.0" />
+    <!-- Known-vulnerable range -->
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="2.1.0" />
+  </ItemGroup>
+
+</Project>

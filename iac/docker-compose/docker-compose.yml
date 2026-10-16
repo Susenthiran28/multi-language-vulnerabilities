@@ -1,0 +1,65 @@
+# File:    docker-compose.yml
+# Purpose: IaC fixture. Compose stack with privileged containers, host network
+#          and host path mounts, exposed database ports, plaintext credentials
+#          and added capabilities.
+#          Intentionally misconfigured - never run.
+# Author:  Vigilnz Security Engineering
+# Date:    2026-10-16
+#
+# Expected rules: COMPOSE-SEC-001..007
+
+version: "3.8"
+
+services:
+
+  app:
+    image: node:latest
+    # Full host access
+    privileged: true
+    network_mode: host
+    pid: host
+    ipc: host
+    user: root
+    cap_add:
+      - ALL
+      - SYS_ADMIN
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
+    restart: always
+    environment:
+      DB_PASSWORD: FixturePassw0rd
+      API_KEY: ak_live_compose_0123456789abcdef
+      JWT_SECRET: fixture-jwt-signing-secret-000000000000
+      NODE_TLS_REJECT_UNAUTHORIZED: "0"
+    volumes:
+      # Docker socket and host root mounted into the container
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /:/host
+      - /etc:/etc-host:ro
+    ports:
+      - "0.0.0.0:3000:3000"
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: FixturePassw0rd
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "0.0.0.0:5432:5432"
+    volumes:
+      - /var/lib/postgresql/data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:latest
+    command: redis-server --protected-mode no
+    ports:
+      - "0.0.0.0:6379:6379"
+
+  mongo:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: FixturePassw0rd
+    ports:
+      - "0.0.0.0:27017:27017"
