@@ -14,9 +14,9 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 using System.Xml;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -25,6 +25,12 @@ namespace Vigilnz.Fixtures
 {
     public class VulnerableController : Controller
     {
+        private sealed class StateDto
+        {
+            public string Name { get; set; }
+            public int Version { get; set; }
+        }
+
         // CWE-798: credentials in source
         private const string ConnectionString = "Server=db;Database=app;User Id=sa;Password=Pr0dPassw0rd!;";
         private const string ApiKey = "ak_live_csharp_0123456789abcdef";
@@ -61,12 +67,27 @@ namespace Vigilnz.Fixtures
         [HttpPost("/state")]
         public IActionResult LoadState([FromBody] byte[] blob)
         {
-            using var ms = new MemoryStream(blob);
-            var formatter = new BinaryFormatter();
-            var state = formatter.Deserialize(ms);
-            var loose = JsonConvert.DeserializeObject(Encoding.UTF8.GetString(blob),
-                new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All });
-            return Ok(new { state, loose });
+            if (blob == null || blob.Length == 0)
+            {
+                return BadRequest("Payload is required.");
+            }
+
+            try
+            {
+                var json = Encoding.UTF8.GetString(blob);
+                var state = JsonSerializer.Deserialize<StateDto>(json);
+                var loose = JsonConvert.DeserializeObject(json,
+                    new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.None });
+                return Ok(new { state, loose });
+            }
+            catch (JsonException)
+            {
+                return BadRequest("Invalid JSON payload.");
+            }
+            catch (ArgumentException)
+            {
+                return BadRequest("Invalid payload encoding.");
+            }
         }
 
         // CWE-918 and CWE-295

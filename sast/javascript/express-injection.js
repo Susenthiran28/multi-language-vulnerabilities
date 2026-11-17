@@ -28,9 +28,21 @@ app.get('/calc', (req, res) => {
   res.json({ result });
 });
 
+// Remediated: previously used Function constructor on user input (CWE-95).
+// Other routes remain intentionally vulnerable for scanner fixture coverage.
 app.post('/render', (req, res) => {
-  const tpl = new Function(req.body.template);
-  res.send(tpl());
+  const template = req.body && req.body.template;
+  if (typeof template !== 'string' || template.length > 5000) {
+    return res.status(400).send('invalid template');
+  }
+
+  const context = {
+    appName: 'demo-app',
+    year: String(new Date().getUTCFullYear())
+  };
+
+  const rendered = template.replace(/\{\{\s*(appName|year)\s*\}\}/g, (_, key) => context[key]);
+  return res.send(rendered);
 });
 
 // CWE-78: OS command injection

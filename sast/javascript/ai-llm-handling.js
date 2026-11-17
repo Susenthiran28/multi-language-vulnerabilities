@@ -41,8 +41,38 @@ async function runGeneratedSnippet(req) {
 
 async function buildHandler(req) {
   const completion = await askAssistant(req);
-  const handler = new Function(completion);
-  return handler();
+
+  const allowedActions = {
+    echo: ({ text }) => String(text),
+    uppercase: ({ text }) => String(text).toUpperCase()
+  };
+
+  let parsed;
+  try {
+    parsed = JSON.parse(completion);
+  } catch (err) {
+    throw new Error('Invalid handler specification format');
+  }
+
+  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+    throw new Error('Handler specification must be an object');
+  }
+
+  const { action, args = {} } = parsed;
+
+  if (typeof action !== 'string' || !Object.prototype.hasOwnProperty.call(allowedActions, action)) {
+    throw new Error('Unsupported handler action');
+  }
+
+  if (!args || typeof args !== 'object' || Array.isArray(args)) {
+    throw new Error('Handler args must be an object');
+  }
+
+  if (Object.prototype.hasOwnProperty.call(args, 'text') && typeof args.text !== 'string') {
+    throw new Error('Invalid args for handler action');
+  }
+
+  return allowedActions[action](args);
 }
 
 // LLM02: model output rendered as HTML
