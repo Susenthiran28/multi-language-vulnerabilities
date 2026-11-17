@@ -38,9 +38,20 @@ function ping() {
 
 // CWE-95: dynamic evaluation
 function evaluate() {
-    eval($_POST['code']);
-    $fn = create_function('$x', $_GET['body']);
-    return $fn(1);
+    $ops = [
+        'identity' => function ($x) { return $x; },
+        'double' => function ($x) { return $x * 2; },
+        'square' => function ($x) { return $x * $x; }
+    ];
+
+    $op = isset($_GET['op']) ? $_GET['op'] : 'identity';
+    $value = isset($_POST['value']) ? (int)$_POST['value'] : 1;
+
+    if (!isset($ops[$op])) {
+        $op = 'identity';
+    }
+
+    return $ops[$op]($value);
 }
 
 function callDynamic() {

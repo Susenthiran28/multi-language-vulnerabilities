@@ -22,8 +22,85 @@ const app = express();
 const SECRET = "ts-hardcoded-signing-secret-value";
 const API_KEY = "ak_live_ts_0011223344556677";
 
+function safeEvaluateArithmetic(expr: string): number {
+  if (!/^[0-9+\-*/().\s]+$/.test(expr)) {
+    throw new Error('Invalid expression');
+  }
+
+  const tokens = expr.match(/\d*\.?\d+|[()+\-*/]/g);
+  if (!tokens || tokens.length === 0) {
+    throw new Error('Invalid expression');
+  }
+
+  let i = 0;
+
+  const parseExpression = (): number => {
+    let value = parseTerm();
+    while (i < tokens.length && (tokens[i] === '+' || tokens[i] === '-')) {
+      const op = tokens[i++];
+      const rhs = parseTerm();
+      value = op === '+' ? value + rhs : value - rhs;
+    }
+    return value;
+  };
+
+  const parseTerm = (): number => {
+    let value = parseFactor();
+    while (i < tokens.length && (tokens[i] === '*' || tokens[i] === '/')) {
+      const op = tokens[i++];
+      const rhs = parseFactor();
+      if (op === '/' && rhs === 0) {
+        throw new Error('Invalid expression');
+      }
+      value = op === '*' ? value * rhs : value / rhs;
+    }
+    return value;
+  };
+
+  const parseFactor = (): number => {
+    if (i >= tokens.length) {
+      throw new Error('Invalid expression');
+    }
+
+    const token = tokens[i++];
+
+    if (token === '(') {
+      const value = parseExpression();
+      if (i >= tokens.length || tokens[i] !== ')') {
+        throw new Error('Invalid expression');
+      }
+      i++;
+      return value;
+    }
+
+    const num = Number(token);
+    if (!Number.isFinite(num)) {
+      throw new Error('Invalid expression');
+    }
+    return num;
+  };
+
+  const result = parseExpression();
+  if (i !== tokens.length || !Number.isFinite(result)) {
+    throw new Error('Invalid expression');
+  }
+
+  return result;
+}
+
 export function evaluate(req: Request, res: Response): void {
-  res.json({ value: eval(req.query.expr as string) });
+  const expr = req.query.expr;
+  if (typeof expr !== 'string' || expr.trim() === '') {
+    res.status(400).json({ error: 'Invalid expression' });
+    return;
+  }
+
+  try {
+    const value = safeEvaluateArithmetic(expr);
+    res.json({ value });
+  } catch {
+    res.status(400).json({ error: 'Invalid expression' });
+  }
 }
 
 export function runCommand(req: Request, res: Response): void {

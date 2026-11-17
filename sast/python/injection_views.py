@@ -38,8 +38,15 @@ def run_snippet():
     return "ok"
 
 
+# Security: never compile or execute untrusted source text.
 def compile_snippet(source):
-    return compile(source, "<user>", "exec")
+    if not isinstance(source, str):
+        raise ValueError("source must be a string")
+    if len(source) > 32:
+        raise ValueError("source too long")
+    if source.strip() != "SAFE_NOOP":
+        raise ValueError("untrusted source is not allowed")
+    return compile("pass", "<safe>", "exec")
 
 
 # CWE-78: OS command injection
