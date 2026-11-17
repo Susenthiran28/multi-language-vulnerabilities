@@ -7,11 +7,11 @@
     "jsonwebtoken": "9.0.3",
     "lodash": "4.18.1",
     "minimist": "1.2.8",
-    "node-fetch": "2.6.0",
-    "semver": "7.3.0",
-    "serialize-javascript": "2.1.2",
+    "node-fetch": "2.7.0",
+    "semver": "7.8.6",
+    "serialize-javascript": "7.1.4",
     "tar": "7.5.23",
-    "ws": "7.4.0",
+    "ws": "7.5.14",
     "y18n": "4.0.0"
   },
   "description": "SCA fixture: npm manifest pinned to known-vulnerable releases. DO NOT INSTALL.",
@@ -26,7 +26,11 @@
     "jsonwebtoken": "9.0.3",
     "lodash": "4.18.1",
     "minimist": "1.2.8",
-    "tar": "7.5.23"
+    "node-fetch": "2.7.0",
+    "semver": "7.8.6",
+    "serialize-javascript": "7.1.4",
+    "tar": "7.5.23",
+    "ws": "7.5.14"
   },
   "private": true,
   "version": "1.0.0"
