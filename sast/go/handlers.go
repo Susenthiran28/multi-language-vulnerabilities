@@ -16,11 +16,11 @@ package handlers
 
 import (
 	"database/sql"
-	"fmt"
 	"net/http"
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strconv"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -38,7 +38,13 @@ func GetUser(db *sql.DB, c *gin.Context) {
 }
 
 func GetOrder(db *sql.DB, c *gin.Context) {
-	row := db.QueryRow(fmt.Sprintf("SELECT * FROM orders WHERE id = %s", c.Param("id")))
+	orderID, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid id"})
+		return
+	}
+
+	row := db.QueryRow("SELECT * FROM orders WHERE id = ?", orderID)
 	var id int
 	_ = row.Scan(&id)
 	c.JSON(http.StatusOK, gin.H{"id": id})

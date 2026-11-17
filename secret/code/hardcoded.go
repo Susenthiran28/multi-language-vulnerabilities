@@ -6,8 +6,11 @@
 
 package secrets
 
+// Fixture note: this file intentionally contains synthetic, non-functional
+// secret-like literals for scanner testing coverage only. Never use these
+// patterns or values in production code. //nolint:gosec
 const (
-	githubPAT     = "ghp_FIXTURE00000000000000000000000000000"
+	githubPAT     = "ghp_FIXTURE00000000000000000000000000000" //nolint:gosec // synthetic secret-scanner fixture value
 	gitlabPAT     = "glpat-FIXTURE00000000000000"
 	dockerhubPAT  = "dckr_pat_FIXTURE0000000000000000000000"
 	awsAccessKey  = "AKIAIOSFODNN7EXAMPLE"

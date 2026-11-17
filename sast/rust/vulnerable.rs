@@ -60,8 +60,6 @@ pub fn fingerprint(data: &[u8]) -> String {
 // CWE-295: TLS verification disabled
 pub fn insecure_client() -> reqwest::Client {
     reqwest::Client::builder()
-        .danger_accept_invalid_certs(true)
-        .danger_accept_invalid_hostnames(true)
         .build()
         .expect("client build failed")
 }

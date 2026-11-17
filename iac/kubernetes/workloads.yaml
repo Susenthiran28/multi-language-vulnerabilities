@@ -85,29 +85,28 @@ metadata:
   namespace: default
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
+kind: Role
 metadata:
   name: fixture-wildcard
+  namespace: default
 rules:
-  - apiGroups: ["*"]
-    resources: ["*"]
-    verbs: ["*"]
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
+kind: RoleBinding
 metadata:
   name: fixture-admin-binding
+  namespace: default
 roleRef:
   apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: cluster-admin
+  kind: Role
+  name: fixture-wildcard
 subjects:
   - kind: ServiceAccount
     name: fixture-admin
     namespace: default
-  - kind: Group
-    name: system:anonymous
-    apiGroup: rbac.authorization.k8s.io
 ---
 # Service exposed directly to the internet
 apiVersion: v1
