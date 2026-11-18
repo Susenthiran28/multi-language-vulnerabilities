@@ -12,7 +12,7 @@
     "serialize-javascript": "2.1.2",
     "tar": "4.4.18",
     "ws": "7.4.0",
-    "y18n": "4.0.0"
+    "y18n": "4.0.1"
   },
   "description": "SCA fixture: npm manifest pinned to known-vulnerable releases. DO NOT INSTALL.",
   "devDependencies": {
@@ -28,7 +28,8 @@
     "handlebars": "4.7.10",
     "jsonwebtoken": "9.0.0",
     "minimist": "1.2.6",
-    "tar": "4.4.18"
+    "tar": "4.4.18",
+    "y18n": "4.0.1"
   },
   "private": true,
   "version": "1.0.0"

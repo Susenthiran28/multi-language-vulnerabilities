@@ -7,7 +7,7 @@
 # CVE-2020-1747 - arbitrary code execution via full_load
 PyYAML==5.4
 # CVE-2019-10906 - Jinja2 sandbox escape
-Jinja2==2.10
+Jinja2==2.11.3
 # CVE-2019-14234 - Django JSONField SQL injection
 Django==2.2.28
 # CVE-2018-1000656 - Flask DoS

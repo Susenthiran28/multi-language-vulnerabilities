@@ -12,7 +12,7 @@ publish = false
 
 [dependencies]
 # CVE-2022-24713 - regex DoS via untrusted patterns
-regex = "=1.5.4"
+regex = "=1.5.5"
 # RUSTSEC-2020-0071 / CVE-2020-26235 - time segfault
 time = "=0.1.44"
 # RUSTSEC-2021-0003 - smallvec buffer overflow
