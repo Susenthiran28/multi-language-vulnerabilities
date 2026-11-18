@@ -25,7 +25,7 @@
     <!-- CVE-2019-0820 - regex DoS -->
     <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
     <!-- CVE-2022-34716 - XML signature spoofing -->
-    <PackageReference Include="System.Security.Cryptography.Xml" Version="4.7.0" />
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="4.7.1" />
     <!-- Known-vulnerable range -->
     <PackageReference Include="Microsoft.Data.SqlClient" Version="2.1.7" />
   </ItemGroup>
