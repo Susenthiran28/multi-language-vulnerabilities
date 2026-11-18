@@ -29,4 +29,4 @@ ipython==7.16.1
 # CVE-2020-28493 - Jinja2/markupsafe ReDoS lineage
 markupsafe==1.1.1
 # CVE-2023-37920 - certifi removes e-Tugra root
-certifi==2022.12.7
+certifi==2026.10.19
