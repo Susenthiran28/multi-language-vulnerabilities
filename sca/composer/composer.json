@@ -8,7 +8,7 @@
     "guzzlehttp/guzzle": "6.5.8",
     "phpmailer/phpmailer": "6.5.0",
     "twig/twig": "2.16.1",
-    "symfony/http-kernel": "4.4.0",
+    "symfony/http-kernel": "4.4.50",
     "monolog/monolog": "1.25.0",
     "league/flysystem": "1.1.4",
     "laravel/framework": "8.83.28"
