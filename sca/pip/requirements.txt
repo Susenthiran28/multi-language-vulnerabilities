@@ -11,7 +11,7 @@ Jinja2==2.10
 # CVE-2019-14234 - Django JSONField SQL injection
 Django==2.2.28
 # CVE-2018-1000656 - Flask DoS
-Flask==0.12.2
+Flask==0.12.3
 # CVE-2018-18074 - requests leaks Authorization header on redirect
 requests==2.19.1
 # CVE-2019-11324 - urllib3 CA cert handling
