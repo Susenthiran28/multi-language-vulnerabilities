@@ -12,7 +12,7 @@ dependencies:
     specifier: 1.14.7
     version: 1.14.7
   lodash:
-    specifier: 4.17.20
+    specifier: 4.18.0
     version: 4.17.20
   minimist:
     specifier: 1.2.6
@@ -36,7 +36,7 @@ packages:
     engines: {node: '>=4.0'}
     dev: false
 
-  /lodash@4.17.20:
+  /lodash@4.18.0:
     resolution: {integrity: sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==}
     dev: false
 
