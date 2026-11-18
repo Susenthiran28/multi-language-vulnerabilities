@@ -17,7 +17,7 @@ requests==2.19.1
 # CVE-2019-11324 - urllib3 CA cert handling
 urllib3==1.24.1
 # CVE-2018-7750 - paramiko auth bypass
-paramiko==2.4.1
+paramiko==2.9.3
 # CVE-2021-25289 - Pillow buffer overflow
 Pillow==8.3.2
 # CVE-2021-41495 - numpy null pointer dereference
