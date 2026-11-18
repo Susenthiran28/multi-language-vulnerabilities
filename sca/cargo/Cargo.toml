@@ -16,7 +16,7 @@ regex = "=1.5.4"
 # RUSTSEC-2020-0071 / CVE-2020-26235 - time segfault
 time = "=0.1.44"
 # RUSTSEC-2021-0003 - smallvec buffer overflow
-smallvec = "=1.6.0"
+smallvec = "=1.6.1"
 # RUSTSEC-2021-0079 - hyper integer overflow
 hyper = "=0.14.9"
 # RUSTSEC-2021-0124 - tokio data race
