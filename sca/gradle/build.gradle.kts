@@ -33,7 +33,7 @@ dependencies {
     implementation("io.netty:netty-handler:4.1.137.Final")
 
     // Known-vulnerable OkHttp range
-    implementation("com.squareup.okhttp3:okhttp:4.9.1")
+    implementation("com.squareup.okhttp3:okhttp:4.9.2")
 
     testImplementation("junit:junit:4.12")
 }
