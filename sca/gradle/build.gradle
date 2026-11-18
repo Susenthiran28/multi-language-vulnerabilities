@@ -40,5 +40,5 @@ dependencies {
     // CVE-2016-1000027 range
     implementation 'org.springframework:spring-core:5.3.0'
 
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13.1'
 }

@@ -21,7 +21,7 @@ paramiko==2.9.3
 # CVE-2021-25289 - Pillow buffer overflow
 Pillow==8.3.2
 # CVE-2021-41495 - numpy null pointer dereference
-numpy==1.21.0
+numpy==1.22
 # CVE-2020-36242 - cryptography buffer overflow
 cryptography==3.3.2
 # CVE-2022-21699 - ipython arbitrary code execution
