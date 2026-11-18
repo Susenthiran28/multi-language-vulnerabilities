@@ -11,7 +11,7 @@
       "System.Text.Encodings.Web": {
         "type": "Direct",
         "requested": "[4.5.0, )",
-        "resolved": "4.5.0",
+        "resolved": "4.5.1",
         "contentHash": "000000000000000000000000000000000000000001=="
       },
       "log4net": {
@@ -23,7 +23,7 @@
       "System.Drawing.Common": {
         "type": "Direct",
         "requested": "[4.7.0, )",
-        "resolved": "4.7.0",
+        "resolved": "4.7.2",
         "contentHash": "000000000000000000000000000000000000000003=="
       },
       "System.Text.RegularExpressions": {
