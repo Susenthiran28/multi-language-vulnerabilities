@@ -4,10 +4,10 @@
   "private": true,
   "description": "SCA fixture: bun manifest pinned to known-vulnerable releases. DO NOT INSTALL.",
   "dependencies": {
-    "express": "4.17.1",
-    "qs": "6.5.2",
-    "cookie": "0.4.1",
-    "send": "0.17.1",
-    "path-to-regexp": "0.1.7"
+    "express": "4.20.0",
+    "qs": "6.16.0",
+    "cookie": "0.7.0",
+    "send": "0.19.0",
+    "path-to-regexp": "0.1.13"
   }
 }

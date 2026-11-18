@@ -30,10 +30,8 @@ const (
 	accessKey  = "AKIAIOSFODNN7EXAMPLE"
 )
 
-const servicePrivateKey = `-----BEGIN RSA PRIVATE KEY-----
-MIIEowIBAAKCAQEAyFixtureKeyMaterialNotRealDoNotUseFixtureKeyMaterial
-NotRealDoNotUseFixtureKeyMaterialNotRealDoNotUseFixtureKeyMaterialAA
------END RSA PRIVATE KEY-----`
+// Sanitized placeholder for fixture safety; intentionally not PEM-formatted key material.
+const servicePrivateKey = `fixture-private-key-placeholder-not-a-real-key`
 
 // CWE-338: predictable session identifiers
 func SessionID() string {

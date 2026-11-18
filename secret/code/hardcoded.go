@@ -7,7 +7,7 @@
 package secrets
 
 const (
-	githubPAT     = "ghp_FIXTURE00000000000000000000000000000"
+	githubPAT     = "github_pat_FIXTURE_NONPROD_000000000000000000"
 	gitlabPAT     = "glpat-FIXTURE00000000000000"
 	dockerhubPAT  = "dckr_pat_FIXTURE0000000000000000000000"
 	awsAccessKey  = "AKIAIOSFODNN7EXAMPLE"
