@@ -6,7 +6,7 @@
     "handlebars": "4.7.10",
     "jsonwebtoken": "9.0.0",
     "lodash": "4.17.15",
-    "minimist": "1.2.0",
+    "minimist": "1.2.6",
     "node-fetch": "2.6.0",
     "semver": "7.3.0",
     "serialize-javascript": "2.1.2",
@@ -26,7 +26,8 @@
     "express": "4.20.0",
     "follow-redirects": "1.16.0",
     "handlebars": "4.7.10",
-    "jsonwebtoken": "9.0.0"
+    "jsonwebtoken": "9.0.0",
+    "minimist": "1.2.6"
   },
   "private": true,
   "version": "1.0.0"

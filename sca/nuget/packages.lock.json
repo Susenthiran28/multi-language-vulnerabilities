@@ -17,7 +17,7 @@
       "log4net": {
         "type": "Direct",
         "requested": "[2.0.8, )",
-        "resolved": "2.0.8",
+        "resolved": "2.0.10",
         "contentHash": "000000000000000000000000000000000000000002=="
       },
       "System.Drawing.Common": {
