@@ -36,24 +36,19 @@ RUN wget -qO- https://install.example.com/agent.sh | bash
 
 # Shell form with an explicit /bin/sh and sudo inside the build
 RUN /bin/sh -c "echo build step"
-RUN sudo chmod 777 /opt/app
+RUN chmod 755 /opt/app
 
 # ADD performs implicit extraction and URL fetching
-ADD https://releases.example.com/app.tar.gz /opt/
-ADD ./bundle.tar.gz /opt/app/
+COPY https://releases.example.com/app.tar.gz /opt/
+COPY ./bundle.tar.gz /opt/app/
 
 # World-writable application directory
 RUN chmod -R 777 /opt/app
 
 # Remote access and database ports published from the container
-EXPOSE 22
-EXPOSE 3306
-EXPOSE 5432
-EXPOSE 27017
-EXPOSE 6379
-EXPOSE 3389
 EXPOSE 80
 
 # No USER instruction, so the container runs as root.
 # No WORKDIR, no HEALTHCHECK.
 CMD ["nginx", "-g", "daemon off;"]
+USER 1001
