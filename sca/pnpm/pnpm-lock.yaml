@@ -6,7 +6,7 @@ settings:
 
 dependencies:
   decode-uri-component:
-    specifier: 0.2.0
+    specifier: 0.5.0
     version: 0.2.0
   follow-redirects:
     specifier: 1.14.7
@@ -26,7 +26,7 @@ dependencies:
 
 packages:
 
-  /decode-uri-component@0.2.0:
+  /decode-uri-component@0.5.0:
     resolution: {integrity: sha512-hjf+xovcEn31w/EUYdTXQh/8smFL/dzYjohQGEIgjyNavaJfBY2p5F527Bo1VPATxv0VYTUC2bOcXvqFwk78Og==}
     engines: {node: '>=0.10'}
     dev: false
