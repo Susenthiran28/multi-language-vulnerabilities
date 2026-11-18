@@ -18,3 +18,5 @@ gem "sinatra", "2.0.1"        # CVE-2018-11627 - XSS in 404 page
 group :development, :test do
   gem "rspec", "3.8.0"
 end
+gem 'actionview', '5.2.7.1'
+gem 'activesupport', '5.2.4.3'
