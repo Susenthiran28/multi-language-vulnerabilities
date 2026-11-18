@@ -7,9 +7,9 @@ ansi-regex@4.1.1:
   resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-4.1.1.tgz#8b9f8f08cf1acb843756a839ca8c7e3168c51997"
   integrity sha512-1apePfXM1UOSqw0o9IiFAovVz9M5S1Dg7PjMbQ4QeMHkA2w9FagNnzkJI4C5l6TlqvCDRxF2vT8AdBnlT1AlQ==
 
-glob-parent@5.1.1:
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/glob-parent/-/glob-parent-5.1.1.tgz#b6c1ef417c4e5663ea498f1c45afac6916bbc229"
+glob-parent@5.1.2:
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/glob-parent/-/glob-parent-5.1.2.tgz#b6c1ef417c4e5663ea498f1c45afac6916bbc229"
   integrity sha512-FnIVGOpnlGHWZxthPGRQhR78fuiK0sNLkHQvbL9fQi57lNNdquIbnaWrfROrolq8GK5Ek6BiMwqLvoRYQ==
 
 hosted-git-info@2.8.8:

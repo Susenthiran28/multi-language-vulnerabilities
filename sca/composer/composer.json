@@ -5,7 +5,7 @@
   "license": "proprietary",
   "require": {
     "php": ">=7.4",
-    "guzzlehttp/guzzle": "6.5.2",
+    "guzzlehttp/guzzle": "6.5.8",
     "phpmailer/phpmailer": "6.1.5",
     "twig/twig": "2.16.1",
     "symfony/http-kernel": "4.4.0",
