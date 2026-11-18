@@ -30,7 +30,7 @@ dependencies {
     implementation("org.apache.commons:commons-text:1.9")
 
     // Known-vulnerable Netty range
-    implementation("io.netty:netty-handler:4.1.68.Final")
+    implementation("io.netty:netty-handler:4.1.137.Final")
 
     // Known-vulnerable OkHttp range
     implementation("com.squareup.okhttp3:okhttp:4.9.1")
