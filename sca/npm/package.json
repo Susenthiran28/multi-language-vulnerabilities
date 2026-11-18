@@ -8,8 +8,8 @@
     "lodash": "4.18.0",
     "minimist": "1.2.6",
     "node-fetch": "2.6.7",
-    "semver": "7.3.0",
-    "serialize-javascript": "2.1.2",
+    "semver": "7.5.2",
+    "serialize-javascript": "7.1.3",
     "tar": "4.4.18",
     "ws": "7.4.0",
     "y18n": "4.0.1"
@@ -17,7 +17,7 @@
   "description": "SCA fixture: npm manifest pinned to known-vulnerable releases. DO NOT INSTALL.",
   "devDependencies": {
     "braces": "3.0.3",
-    "shelljs": "0.8.3"
+    "shelljs": "0.8.5"
   },
   "name": "vuln-corpus-npm",
   "overrides": {
@@ -31,6 +31,9 @@
     "lodash": "4.18.0",
     "minimist": "1.2.6",
     "node-fetch": "2.6.7",
+    "semver": "7.5.2",
+    "serialize-javascript": "7.1.3",
+    "shelljs": "0.8.5",
     "tar": "4.4.18",
     "y18n": "4.0.1"
   },
