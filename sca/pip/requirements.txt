@@ -23,7 +23,7 @@ Pillow==8.3.2
 # CVE-2021-41495 - numpy null pointer dereference
 numpy==1.21.0
 # CVE-2020-36242 - cryptography buffer overflow
-cryptography==3.2
+cryptography==3.3.2
 # CVE-2022-21699 - ipython arbitrary code execution
 ipython==7.16.1
 # CVE-2020-28493 - Jinja2/markupsafe ReDoS lineage
