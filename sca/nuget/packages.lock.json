@@ -35,7 +35,7 @@
       "System.Security.Cryptography.Xml": {
         "type": "Direct",
         "requested": "[4.7.0, )",
-        "resolved": "4.7.0",
+        "resolved": "4.7.1",
         "contentHash": "000000000000000000000000000000000000000005=="
       },
       "Microsoft.Data.SqlClient": {
