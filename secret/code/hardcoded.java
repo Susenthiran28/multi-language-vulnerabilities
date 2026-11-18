@@ -8,11 +8,18 @@
 
 package com.vigilnz.fixtures;
 
+/**
+ * SECURITY TEST FIXTURE ONLY.
+ * <p>
+ * This class intentionally contains hardcoded, secret-like token patterns so
+ * secret-scanning rules can be validated in tests. All values are synthetic,
+ * non-functional placeholders and must never be used for real authentication.
+ */
 public final class HardcodedSecrets {
 
     public static final String AWS_ACCESS_KEY_ID = "AKIAIOSFODNN7EXAMPLE";
     public static final String AWS_SECRET_ACCESS_KEY = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY";
-    public static final String JDBC_URL = "jdbc:mysql://db.internal.example.com:3306/app?user=root&password=FixtureRootPass";
+    public static final String JDBC_URL = "jdbc:mysql://db.internal.example.com:3306/app?user=root\u0026password=FixtureRootPass";
     public static final String API_KEY = "ak_live_java_0123456789abcdef";
     public static final String DB_PASSWORD = "Pr0dPassw0rd!";
     public static final String JWT_SECRET = "fixture-jwt-signing-secret-000000000000";
