@@ -22,7 +22,7 @@ hyper = "=0.14.12"
 # RUSTSEC-2021-0124 - tokio data race
 tokio = { version = "=1.8.0", features = ["full"] }
 # RUSTSEC-2023-0072 - openssl use-after-free
-openssl = "=0.10.38"
+openssl = "=0.10.79"
 # RUSTSEC-2022-0040 - owning_ref unsoundness
 owning_ref = "=0.4.1"
 # RUSTSEC-2021-0078 - hyper header parsing

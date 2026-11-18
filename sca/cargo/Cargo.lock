@@ -30,7 +30,7 @@ checksum = "07d6baa1b441335f3ce5098ac421fb6547c46dda735ca1bc6d0153c838f9dd83"
 
 [[package]]
 name = "openssl"
-version = "0.10.38"
+version = "0.10.79"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0c7ae222234c30df141154f159066c5093ff73b63204dcda7121eb082fc56a95"
 

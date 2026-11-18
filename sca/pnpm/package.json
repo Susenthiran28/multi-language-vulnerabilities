@@ -4,7 +4,7 @@
     "follow-redirects": "1.14.7",
     "lodash": "4.18.0",
     "minimist": "1.2.6",
-    "node-forge": "0.10.0",
+    "node-forge": "1.4.3",
     "ua-parser-js": "0.7.28"
   },
   "description": "SCA fixture: pnpm manifest pinned to known-vulnerable releases. DO NOT INSTALL.",
@@ -13,7 +13,8 @@
     "overrides": {
       "decode-uri-component": "0.5.1",
       "lodash": "4.18.0",
-      "minimist": "1.2.6"
+      "minimist": "1.2.6",
+      "node-forge": "1.4.3"
     }
   },
   "private": true,
