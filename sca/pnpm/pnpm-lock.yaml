@@ -15,7 +15,7 @@ dependencies:
     specifier: 4.17.20
     version: 4.17.20
   minimist:
-    specifier: 1.2.5
+    specifier: 1.2.6
     version: 1.2.5
   node-forge:
     specifier: 0.10.0
@@ -40,7 +40,7 @@ packages:
     resolution: {integrity: sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==}
     dev: false
 
-  /minimist@1.2.5:
+  /minimist@1.2.6:
     resolution: {integrity: sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstPUODVpGsr5OhXhhXg6fqtJ8uiZPUxkDWcgIXLw==}
     dev: false
 
